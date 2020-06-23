@@ -1,0 +1,47 @@
+body {
+    background-color: azure;
+}
+    .main {
+        display: inline-block;
+        width: 500px;
+        height: 250px;
+        border: 1px dashed rgb(110, 136, 240);
+        margin-top: calc(50vh - 125px);
+        margin-left: calc(50% - 250px);
+        border-top-right-radius: 40px;
+        border-bottom-left-radius: 40px;
+    }
+        .wrap {
+            display: flex;
+            position: relative;
+            width: 500px;
+            height: 250px;
+            font-size: 10px;
+            color: rgb(85, 54, 85);
+            align-items: center;
+            padding-left: 30px;
+            margin-left: calc(50% - 246px);
+            margin-top: calc(50% - 246px);
+            border: 1px solid rgb(38, 38, 38);
+            border-top-right-radius: 40px;
+            border-bottom-left-radius: 40px;
+        }
+            img {
+                position: absolute;
+                width: 120px;
+                height: 90px;
+                right: 50px;
+            }
+            button {
+                display: inline-block;
+                margin-top: 20px;
+                width: 150px;
+                height: 25px;
+                font-weight: 16px;
+                border-radius: 50px;
+                border: 1px solid black;
+            }
+            input {
+                margin: 3px;
+                margin-right: 10px;
+            }
