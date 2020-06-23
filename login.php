@@ -37,6 +37,7 @@
                 header('Location: http://192.168.64.2/PHP/BANK_Application/login.php'); // GET
                 die();
             }
+            
 
 
             echo '<form action="http://192.168.64.2/PHP/BANK_Application/login.php" method="post">';

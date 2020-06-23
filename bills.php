@@ -22,7 +22,7 @@
             ?>
 
         </div>
-        <div class="profile"></div>
+        <div class="profile">:)</div>
     </div>
 
 </body>
