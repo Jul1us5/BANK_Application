@@ -72,7 +72,7 @@
             <div class="title">Sąskaitų sąrašas</div>
 
             <div class="title">
-            <span>Nr.</span><span>ID</span><span>VARDAS</span><span>PAVARDE</span><span>ASMENS KODAS</span><span>SUMA</span>
+                <span>Nr.</span><span>ID</span><span>VARDAS</span><span>PAVARDE</span><span>ASMENS KODAS</span><span>SUMA</span>
             </div>
             <div class="keeper min">
 
@@ -82,7 +82,8 @@
 
                 if (empty($data)) {
                     echo '<div class="mess">';
-                    echo 'Kolkas nieko nera :(';
+                    echo '<img src="./img/poster.svg" alt="">';
+                    echo '<div class="text">Tuščias sąrašas!</div>';
                     echo '</div>';
                 } else {
                     foreach ($data as $key => $value) {
@@ -92,14 +93,14 @@
                             echo "<div class='result'>";
                             echo "<span>" . $key . "</span><span>" . $value['id'] . "</span><span>" . $value['vardas'] . "</span><span>" . $value['pavarde'] . "</span><span>" . $value['key'] . "</span><span>" . $value['bill'] . " € </span>";
 
-                            
+
                             echo '<span>';
                             echo '<form action="delete" method="get">';
                             // echo '<input type="submit" name=' . $key . ' value="delete">';
                             echo '<a href="http://192.168.64.2/PHP/BANK_Application/bills.php?delete" type="submit" name=' . $key . ' id="x"><i class="fa fa-times"></i></a>';
                             echo '</form>';
                             echo '</span>';
-                            
+
 
                             echo "</div>";
                         }
@@ -111,44 +112,43 @@
                 }
 
                 //get all your data on file
-$data = file_get_contents('data.json');
+                $data = file_get_contents('data.json');
 
-// decode json to associative array
-$json_arr = json_decode($data, true);
+                // decode json to associative array
+                $json_arr = json_decode($data, true);
 
-// get array index to delete
-$arr_index = array();
-if(isset($_POST['delete'])) {
-    
-    foreach ($json_arr as $key => $value) {
-        
-        if ($key == $delete) {
-            $arr_index[] = $key;
-        }
-    }
-}
-if(isset($_GET['delete'])) {
-    foreach ($json_arr as $key => $value) {
-        if ($key == $delete) {
-            $arr_index[] = $key;
-            header("Location: http://192.168.64.2/PHP/BANK_Application/bills.php");
-            sleep(1);
-        }
-    }
-   
-}
+                // get array index to delete
+                $arr_index = array();
+                if (isset($_POST['delete']) && isset($_POST['name'])) {
+
+                    foreach ($json_arr as $key => $value) {
+                        $delete = $key;
+                        if ($key == $delete) {
+                            $arr_index[] = $key;
+                        }
+                    }
+                }
+                if (isset($_GET['delete'])) {
+                    foreach ($json_arr as $key => $value) {
+                        if ($key == $delete) {
+                            $arr_index[] = $key;
+                            header("Location: http://192.168.64.2/PHP/BANK_Application/bills.php");
+                            sleep(1);
+                        }
+                    }
+                }
 
 
-// delete data
-foreach ($arr_index as $i) {
-    unset($json_arr[$i]);
-}
+                // delete data
+                foreach ($arr_index as $i) {
+                    unset($json_arr[$i]);
+                }
 
-// rebase array
-$json_arr = array_values($json_arr);
+                // rebase array
+                $json_arr = array_values($json_arr);
 
-// encode array to json and save to file
-file_put_contents('data.json', json_encode($json_arr));
+                // encode array to json and save to file
+                file_put_contents('data.json', json_encode($json_arr));
 
 
                 ?>

@@ -80,7 +80,7 @@ if (!empty($_POST)) {
 
             
                 <div class="keeper">   
-                <div class="mess">
+                <div class="text">
                     Sveiki!
                     </div>
                 
