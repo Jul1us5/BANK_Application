@@ -109,6 +109,7 @@ body {
                     background-color: rgb(160, 210, 249);
                 }
                     .keeper {
+                        position: relative;
                         display: inline-block;
                         width: 99.7%;
                         height: calc(100% - 48px);
@@ -118,6 +119,17 @@ body {
                         color: rgb(85, 54, 85);
                         font-size: 14;
                     }
+                        .right {
+                            position: absolute;
+                            display: inline-block;
+                            float: right;
+                            width: 60%;
+                            height: 100%;
+                            right: 0;
+                            top: 0;
+                            border-left: 1px dashed white;
+                            padding: 100px;
+                        }
                 img {
                     position: absolute;
                     width: 120px;
