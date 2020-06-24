@@ -9,10 +9,11 @@ $data = json_decode(file_get_contents(__DIR__ . '/data.json'), true);
 
 if (!empty($_POST)) {
 
+    $rand = rand(1000,9999);
 
-    if(!empty($_POST['id']) && !empty($_POST['vardas']) && !empty($_POST['pavarde']) && !empty($_POST['key'])) {
+    if(!empty($_POST['vardas']) && !empty($_POST['pavarde']) && !empty($_POST['key'])) {
         $data[] = [
-            'id' => $_POST['id'],
+            'id' => $rand,
             'vardas' => $_POST['vardas'],
             'pavarde' => $_POST['pavarde'],
             'key' => $_POST['key'],
@@ -21,7 +22,7 @@ if (!empty($_POST)) {
         $error = '<div class="good">Sąskata sekmingai sukurta!</div>';
         
 
-        $id = $_POST['id'];
+        $id = $rand;
         $vardas = $_POST['vardas'];
         $pavarde = $_POST['pavarde'];
         $key = $_POST['key'];
@@ -60,7 +61,7 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="./style/font-awesome.min.css">
     <link rel="stylesheet" href="./style/reset.css">
     <link rel="stylesheet" href="./style/main.css">
-    <title>BANK Application | New Bill</title>
+    <title>BANK Application | Sukurti sąskaitą</title>
 </head>
 
 <body>
@@ -84,32 +85,32 @@ if (!empty($_POST)) {
                 <div class="keeper">   
                 <!-- <h1>Form</h1> -->
                 <?= $error ?>
+                <div class="title">
                 <form name="form1" method="post" action="newbill.php">
-                    <p>
-                        
+                    <!-- <p>
                         <input type="tel" name="id" id="cell">
-                        <label for="id">ID: </label>
-                    </p>
+                        <label for="id">ID </label>
+                    </p> -->
                     <p>
                         
                         <input type="text" name="vardas" id="name">
-                        <label for="vardas">Vardas: </label>
+                        <label for="vardas">Vardas </label>
                     </p>
                     <p>
                         
                         <input type="text" name="pavarde" id="name">
-                        <label for="pavarde">Pavarde: </label>
+                        <label for="pavarde">Pavarde </label>
                     </p>
                     <p>
                         
                         <input type="tel" name="key" id="cell">
-                        <label for="key">KEY: </label>
+                        <label for="key">Asmens Kodas </label>
                     </p>
                     
                         <div class="plus">
                         <input type="submit" name="submit" id="submit" value="Sukurti">
                         </div>
-                    
+                    </div>
                 </form>
                 <?= $good ?>
             </div>

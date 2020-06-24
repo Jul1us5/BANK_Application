@@ -60,7 +60,7 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="./style/font-awesome.min.css">
     <link rel="stylesheet" href="./style/reset.css">
     <link rel="stylesheet" href="./style/main.css">
-    <title>BANK Application | New Bill</title>
+    <title>BANK Application | Nuskaičiuoti lėšas</title>
 </head>
 
 <body>
