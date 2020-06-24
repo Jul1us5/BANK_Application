@@ -1,7 +1,5 @@
 <?php
 
-
-
 $error = '';
 $good = '';
 $space = "&nbsp;&nbsp;&nbsp;";
@@ -60,7 +58,7 @@ if (!empty($_POST)) {
     <link rel="stylesheet" href="./style/font-awesome.min.css">
     <link rel="stylesheet" href="./style/reset.css">
     <link rel="stylesheet" href="./style/main.css">
-    <title>BANK Application | New Bill</title>
+    <title>BANK Application</title>
 </head>
 
 <body>
@@ -82,7 +80,9 @@ if (!empty($_POST)) {
 
             
                 <div class="keeper">   
-                <!-- <h1>Form</h1> -->
+                <div class="mess">
+                    Sveiki!
+                    </div>
                 
             
 
