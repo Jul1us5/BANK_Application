@@ -3,6 +3,8 @@
 
 
 $error = '';
+$good = '';
+$space = "&nbsp;&nbsp;&nbsp;";
 $data = json_decode(file_get_contents(__DIR__ . '/data.json'), true);
 
 if (!empty($_POST)) {
@@ -16,7 +18,24 @@ if (!empty($_POST)) {
             'key' => $_POST['key'],
             'bill' => 0
         ];
-        $error = '<div class="good">Sąskaita sekmingai sukurta!</div>';
+        $error = '<div class="good">Sąskata sekmingai sukurta!</div>';
+        
+
+        $id = $_POST['id'];
+        $vardas = $_POST['vardas'];
+        $pavarde = $_POST['pavarde'];
+        $key = $_POST['key'];
+        $bill = 0;
+
+
+
+        $good = "<div class='right'>
+                    <b>ID:</b> $id<br/>
+                    <b>Vardas:</b> $vardas<br/>
+                    <b>Pavardė:</b> $pavarde<br/>
+                    <b>Asmens Kodas:</b> $key<br/>
+                    <b>Sąskaita:</b> $bill Eur.<br/>
+                </div>";
         unset($_POST);
     } else {
 
@@ -92,7 +111,9 @@ if (!empty($_POST)) {
                         </div>
                     
                 </form>
+                <?= $good ?>
             </div>
+            
 
         </div>
      </div>
