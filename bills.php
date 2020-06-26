@@ -87,21 +87,17 @@
                     echo '</div>';
                 } else {
                     foreach ($data as $key => $value) {
+
                         if (!empty($_POST)) {
                             unset($data[$key]);
                         } else {
                             echo "<div class='result'>";
                             echo "<span>" . $key . "</span><span>" . $value['id'] . "</span><span>" . $value['vardas'] . "</span><span>" . $value['pavarde'] . "</span><span>" . $value['key'] . "</span><span>" . $value['bill'] . " € </span>";
-
-
                             echo '<span>';
                             echo '<form action="delete" method="get">';
-                            // echo '<input type="submit" name=' . $key . ' value="delete">';
-                            echo '<a href="http://192.168.64.2/PHP/BANK_Application/bills.php?delete" type="submit" name=' . $key . ' id="x"><i class="fa fa-times"></i></a>';
+                            echo '<a href="http://192.168.64.2/PHP/BANK_Application/bills.php?delete=' . $key . ' "  " type="submit" name=' . $key . ' id="x"><i class="fa fa-times"></i></a>';
                             echo '</form>';
                             echo '</span>';
-
-
                             echo "</div>";
                         }
                     }
@@ -119,26 +115,17 @@
 
                 // get array index to delete
                 $arr_index = array();
-                if (isset($_POST['delete']) && isset($_POST['name'])) {
-
+                if (isset($_GET['delete']) && isset($_GET['delete'])) {
+                    $remove = $_GET['delete'];
                     foreach ($json_arr as $key => $value) {
                         $delete = $key;
                         if ($key == $delete) {
-                            $arr_index[] = $key;
-                        }
-                    }
-                }
-                if (isset($_GET['delete'])) {
-                    foreach ($json_arr as $key => $value) {
-                        if ($key == $delete) {
-                            $arr_index[] = $key;
+                            $arr_index[] = $remove;
                             header("Location: http://192.168.64.2/PHP/BANK_Application/bills.php");
-                            sleep(1);
+                            sleep(0.5);
                         }
                     }
                 }
-
-
                 // delete data
                 foreach ($arr_index as $i) {
                     unset($json_arr[$i]);
