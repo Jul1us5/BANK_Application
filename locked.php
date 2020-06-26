@@ -81,7 +81,7 @@ if (!empty($_POST)) {
             
                 <div class="keeper">   
                 <div class="text">
-                    Sveiki!
+                    Sveiki! Prisijungęs kaip Julius.
                     </div>
                 
             
