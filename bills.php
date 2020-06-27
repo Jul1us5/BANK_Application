@@ -87,7 +87,7 @@
                     echo '</div>';
                 } else {
                     foreach ($data as $key => $value) {
-
+                
                         if (!empty($_POST)) {
                             unset($data[$key]);
                         } else {
@@ -95,11 +95,13 @@
                             echo "<span>" . $key . "</span><span>" . $value['id'] . "</span><span>" . $value['vardas'] . "</span><span>" . $value['pavarde'] . "</span><span>" . $value['key'] . "</span><span>" . $value['bill'] . " € </span>";
                             echo '<span>';
                             echo '<form action="delete" method="get">';
-                            echo '<a href="http://192.168.64.2/PHP/BANK_Application/bills.php?delete=' . $key . ' "  " type="submit" name=' . $key . ' id="x"><i class="fa fa-times"></i></a>';
+                            echo '<a href="http://192.168.64.2/PHP/BANK_Application/bills.php?delete='. $key .' "  " type="submit" name=' . $key . ' id="x"><i class="fa fa-times"></i></a>';
                             echo '</form>';
                             echo '</span>';
                             echo "</div>";
                         }
+                    
+
                     }
                 }
 
@@ -126,13 +128,14 @@
                         }
                     }
                 }
+
                 // delete data
                 foreach ($arr_index as $i) {
                     unset($json_arr[$i]);
                 }
 
                 // rebase array
-                $json_arr = array_values($json_arr);
+                // $json_arr = array_values($json_arr);
 
                 // encode array to json and save to file
                 file_put_contents('data.json', json_encode($json_arr));

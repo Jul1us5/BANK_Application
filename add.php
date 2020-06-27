@@ -10,7 +10,7 @@ $data = json_decode(file_get_contents(__DIR__ . '/data.json'), true);
 if (!empty($_POST)) {
 
 
-    if(!empty($_POST['id']) && !empty($_POST['vardas']) && !empty($_POST['pavarde']) && !empty($_POST['key'])) {
+    if (!empty($_POST['id']) && !empty($_POST['vardas']) && !empty($_POST['pavarde']) && !empty($_POST['key'])) {
         $data[] = [
             'id' => $_POST['id'],
             'vardas' => $_POST['vardas'],
@@ -19,7 +19,7 @@ if (!empty($_POST)) {
             'bill' => 0
         ];
         $error = '<div class="good">Sąskata sekmingai sukurta!</div>';
-        
+
 
         $id = $_POST['id'];
         $vardas = $_POST['vardas'];
@@ -78,16 +78,50 @@ if (!empty($_POST)) {
         </div>
         <div class="profile">
 
-        <div class="title">Pidėti lėšas</div>
+            <div class="title">Pidėti lėšas</div>
 
-            
-                <div class="keeper">   
-                <!-- <h1>Form</h1> -->
-                
-            
 
+            <div class="keeper">
+                <?php
+
+                if (!empty($_POST)) {
+                    file_put_contents(__DIR__ . '/data.json', json_encode($data));
+                }
+
+                //get all your data on file
+                $data = file_get_contents('data.json');
+
+                ?>
+
+                <form action="http://192.168.64.2/PHP/BANK_Application/add.php?type=add" method="GET">
+                    <select name="user">
+                        <option selected="selected">Choose one</option>
+                        <?php
+                        $user = json_decode($data, true);
+                        // A sample product array
+
+
+                        // Iterating through the product array
+                        foreach ($user as $item) {
+                        ?>
+                            <option value="<?php echo strtolower($item['id']); ?>"><?php echo $item['id']; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <button type="submit"></button>
+                </form>
+
+                <?php
+
+                if (isset($_GET['user'])) {
+                    
+                        echo '.......';
+                    
+                }
+                ?>
+            </div>
         </div>
-     </div>
 
 </body>
 
