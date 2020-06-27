@@ -1,6 +1,5 @@
 <?php
-
-
+// session_start();
 
 $error = '';
 $good = '';
@@ -109,16 +108,64 @@ if (!empty($_POST)) {
                         }
                         ?>
                     </select>
-                    <button type="submit"></button>
+                    <input type="submit">
                 </form>
 
                 <?php
 
                 if (isset($_GET['user'])) {
-                    
-                        echo '.......';
-                    
+
+
+
+                    foreach ($user as $item) {
+
+                        if ($_GET['user'] == $item['id']) {
+                            echo "<div class='right'>";
+                            echo "<b>ID:</b> " . $_GET['user'] .  "<br/>";
+                            echo "<b>Vardas:</b> " . $item['vardas'] .  "<br/>";
+                            echo "<b>Pavardė:</b> " . $item['pavarde'] .  "<br/>";
+                            echo "<b>Asmens Kodas:</b> " . $item['key'] .  "<br/>";
+                            echo "<b>Sąskaita:</b> " . $item['bill'] .  "<br/>";
+                            echo "</div>";
+                            echo "<br>";
+
+                            $id = $_GET['user'];
+                            $_SESSION['id'] = $id;
+
+                            echo '<form name="form" action="?type=plus" method="get">';
+                            echo '<input type="text" name="plus" id="plus">';
+                            echo '<input type="submit" value="+">';
+                            echo '</form>';
+                        }
+                    }
                 }
+                // $data = file_get_contents('data.json');
+                // $array = json_decode($data, true);
+                $data = file_get_contents('data.json');
+                $array = json_decode($data, true);
+
+                $arr_bill = array();
+
+                if (isset($_GET['plus'])) {
+                    echo "<div class='right'>";
+
+                    foreach($array as $key => $value) {
+                        // if($_SESSION['id'] == $value['id']) {
+                        //     $value['bill'] += $_GET['plus'];
+                        // } 
+
+                            if ($_SESSION['id'] == $value['id']) {
+                                $array[$key]['bill'] += $_GET['plus'];
+                            }
+                    
+                    }
+                    echo "Prideda: " . $_GET['plus'] . "Eur";
+                    echo "</div>";
+                }
+
+                file_put_contents('data.json', json_encode($array));
+
+
                 ?>
             </div>
         </div>
