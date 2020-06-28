@@ -1,55 +1,3 @@
-<?php
-// session_start();
-
-$error = '';
-$good = '';
-$space = "&nbsp;&nbsp;&nbsp;";
-$data = json_decode(file_get_contents(__DIR__ . '/data.json'), true);
-
-if (!empty($_POST)) {
-
-
-    if (!empty($_POST['id']) && !empty($_POST['vardas']) && !empty($_POST['pavarde']) && !empty($_POST['key'])) {
-        $data[] = [
-            'id' => $_POST['id'],
-            'vardas' => $_POST['vardas'],
-            'pavarde' => $_POST['pavarde'],
-            'key' => $_POST['key'],
-            'bill' => 0
-        ];
-        $error = '<div class="good">Sąskata sekmingai sukurta!</div>';
-
-
-        $id = $_POST['id'];
-        $vardas = $_POST['vardas'];
-        $pavarde = $_POST['pavarde'];
-        $key = $_POST['key'];
-        $bill = 0;
-
-
-
-        $good = "<div class='right'>
-                    <b>ID:</b> $id<br/>
-                    <b>Vardas:</b> $vardas<br/>
-                    <b>Pavardė:</b> $pavarde<br/>
-                    <b>Asmens Kodas:</b> $key<br/>
-                    <b>Sąskaita:</b> $bill Eur.<br/>
-                </div>";
-        unset($_POST);
-    } else {
-
-        $error = '<div class="error">Blodai užpildyta forma</div>';
-    }
-
-
-
-    file_put_contents(__DIR__ . '/data.json', json_encode($data));
-}
-
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,6 +12,51 @@ if (!empty($_POST)) {
 
 <body>
     <?php
+
+    $error = '';
+    $good = '';
+    $space = "&nbsp;&nbsp;&nbsp;";
+    $data = json_decode(file_get_contents(__DIR__ . '/data.json'), true);
+
+    if (!empty($_POST)) {
+
+
+        if (!empty($_POST['id']) && !empty($_POST['vardas']) && !empty($_POST['pavarde']) && !empty($_POST['key'])) {
+            $data[] = [
+                'id' => $_POST['id'],
+                'vardas' => $_POST['vardas'],
+                'pavarde' => $_POST['pavarde'],
+                'key' => $_POST['key'],
+                'bill' => 0
+            ];
+            $error = '<div class="good">Sąskata sekmingai sukurta!</div>';
+
+
+            $id = $_POST['id'];
+            $vardas = $_POST['vardas'];
+            $pavarde = $_POST['pavarde'];
+            $key = $_POST['key'];
+            $bill = 0;
+
+
+
+            $good = "<div class='right'>
+                    <b>ID:</b> $id<br/>
+                    <b>Vardas:</b> $vardas<br/>
+                    <b>Pavardė:</b> $pavarde<br/>
+                    <b>Asmens Kodas:</b> $key<br/>
+                    <b>Sąskaita:</b> $bill Eur.<br/>
+                </div>";
+            unset($_POST);
+        } else {
+
+            $error = '<div class="error">Blodai užpildyta forma</div>';
+        }
+
+
+
+        file_put_contents(__DIR__ . '/data.json', json_encode($data));
+    }
     include './requires.php';
     ?>
 
@@ -93,14 +86,10 @@ if (!empty($_POST)) {
                 ?>
 
                 <form action="http://192.168.64.2/PHP/BANK_Application/add.php?type=add" method="GET">
-                    <select name="user">
-                        <option selected="selected">Choose one</option>
+                    <select class="id" name="user">
+                        <option selected="selected">ID</option>
                         <?php
                         $user = json_decode($data, true);
-                        // A sample product array
-
-
-                        // Iterating through the product array
                         foreach ($user as $item) {
                         ?>
                             <option value="<?php echo strtolower($item['id']); ?>"><?php echo $item['id']; ?></option>
@@ -108,7 +97,7 @@ if (!empty($_POST)) {
                         }
                         ?>
                     </select>
-                    <input type="submit">
+                    <input class="submit" type="submit" value="Pasirinkti">
                 </form>
 
                 <?php
@@ -128,19 +117,21 @@ if (!empty($_POST)) {
                             echo "<b>Sąskaita:</b> " . $item['bill'] .  "<br/>";
                             echo "</div>";
                             echo "<br>";
+                            echo "<br>";
+                            echo "<br>";
 
-                            $id = $_GET['user'];
-                            $_SESSION['id'] = $id;
+
+                            $_SESSION['id'] = $_GET['user'];
+                            $_SESSION['vardas'] = $item['vardas'];
+
 
                             echo '<form name="form" action="?type=plus" method="get">';
-                            echo '<input type="text" name="plus" id="plus">';
+                            echo '<input class="inputs" type="text" name="plus" id="plus">';
                             echo '<input type="submit" value="+">';
                             echo '</form>';
                         }
                     }
                 }
-                // $data = file_get_contents('data.json');
-                // $array = json_decode($data, true);
                 $data = file_get_contents('data.json');
                 $array = json_decode($data, true);
 
@@ -149,20 +140,23 @@ if (!empty($_POST)) {
                 if (isset($_GET['plus'])) {
                     echo "<div class='right'>";
 
-                    foreach($array as $key => $value) {
-                        // if($_SESSION['id'] == $value['id']) {
-                        //     $value['bill'] += $_GET['plus'];
-                        // } 
+                    foreach ($array as $key => $value) {
 
-                            if ($_SESSION['id'] == $value['id']) {
+
+                        if ($_SESSION['id'] == $value['id']) {
+
+                            if (!empty($_GET['plus'])) {
                                 $array[$key]['bill'] += $_GET['plus'];
+                                echo "<b>VARDAS</b>: " . $_SESSION['vardas'] . "<br><b>ID</b>: " . $_SESSION['id'] . "<br><b>PRIDETA</b>: " . $_GET['plus'] . " €<i class='fa fa-check added'></i>";
+                            } else {
+                                echo "<div class='error'>Įvyko Klaida!</div>";
                             }
-                    
+                        }
                     }
-                    echo "Prideda: " . $_GET['plus'] . "Eur";
-                    echo "</div>";
                 }
 
+
+                echo "</div>";
                 file_put_contents('data.json', json_encode($array));
 
 

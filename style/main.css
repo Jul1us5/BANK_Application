@@ -226,5 +226,32 @@ body {
                             color: red;
                         }
                         .good {
-                            color: green;
+                            color: rgb(0, 255, 0);
+                        }
+                        .added {
+                            position: absolute;
+                            color: rgb(45, 214, 45);
+                            font-size: 60px;
+                            top: 100px;
+                            left: 300px;
+                        }
+                        .id {
+                            display: inline-block;
+                            position: absolute;
+                            height: 20px;
+                            top: 74px;
+                            width: 100px;
+                            float: left;
+                            background-color: rgb(255, 0, 0);
+                        }
+                        .submit {
+                            display: inline-block;
+                            position: absolute;
+                            left: 170px;
+                            height: 22px;
+                        }
+                        .inputs {
+                            display: inline-block;
+                            width: 60px;
+                            height: 20px;
                         }
